@@ -552,7 +552,7 @@ document.querySelector('input[type=file]').onchange = function() {
 
 // chat
 //document.getElementById('input-text-chat').onkeyup || document.getElementById('chat-send-button').onclick = function(e) {
-document.getElementById('chat-send-button').onclick = function(e) {
+document.getElementById('input-text-chat').onkeyup = function(e) {
                 if (e.keyCode != 13) return;
 
                 // removing trailing/leading whitespace
@@ -562,6 +562,17 @@ document.getElementById('chat-send-button').onclick = function(e) {
                 connection.send(this.value);
                 appendDIV("<strong>" + userid + " : " + "</strong>" + this.value);
                 this.value = '';
+            };
+
+document.getElementById('chat-send-button').onclick = function(e) {
+				this.value = document.getElementById('input-text-chat').value;
+                // removing trailing/leading whitespace
+                this.value = this.value.replace(/^\s+|\s+$/g, '');
+                if (!this.value.length) return;
+				else{
+                connection.send(this.value);
+                appendDIV("<strong>" + userid + " : " + "</strong>" + this.value);
+                this.value = '';}
             };
 
             var chatContainer = document.querySelector('.chat-output');
