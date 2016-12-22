@@ -19,8 +19,14 @@
 }
 
 #videos-container {
-    height: 320px;
-    width: 480px;
+    height: auto;
+    width: 100%;
+
+}
+
+video {
+    height: auto;
+    width: 100%;
 
 }
 	<!--
@@ -88,7 +94,7 @@
 	<form class="form-vertical">
 		<div class="form-group">
 			<div class="col-md-8 col-md-offset-2">
-			<div class="panel panel-default">
+			<div class="panel panel-primary">
 				<div class="panel-heading"><span class="glyphicon glyphicon-education" aria-hidden="true"></span>  FILKOM CLASS VIRTUAL</div>
 				<div class="panel-body">
 				<label class="col-sm-8 control-label">Enter Your Name</label>
@@ -114,14 +120,14 @@
 	
 		<div class=row">
 			<div class="col-md-5 col-sm-offset-1">
-			<div class="panel panel-default">
+			<div class="panel panel-primary">
 				<div class="panel-heading"><span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span>  Video Stream</div>
 					<div class="panel-body">
 						<div id="videos-container"></div>
 					</div>
 			</div>
 				
-				<div class="panel panel-default">
+				<div class="panel panel-primary">
 					<div class="panel-heading"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>    Share File</div>
 						<div class="panel-body">
 							<input type="file" disabled>
@@ -133,7 +139,7 @@
 		</div>
 
 		<div class="col-md-5">
-				<div class="panel panel-default">
+				<div class="panel panel-primary">
 					<div class="panel-heading"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> Chat</div>
 						<div class="panel-body">
 							<div class="chat-box" style="overflow-y: scroll; height: calc(100vh - 110px); overflow-x: hidden;">
@@ -145,7 +151,7 @@
 				<div class="input-group">
 					<input type="text" id="input-text-chat" class="form-control" style ="margin-top:10px;" placeholder="Please enter a message here..." disabled>
 					<span class="input-group-btn">
-					<button class="btn btn-default" type="button" style ="margin-top:10px;">Send</button>
+					<button class="btn btn-default" id="chat-send-button" type="button" style ="margin-top:10px;">Send</button></span>
 				</div>
 					<!--
 					<div class="normal" style="padding-left:400px";>
@@ -162,9 +168,9 @@
 
 </div>
 <script src="/socket.io/socket.io.js"></script>
-<!--<script src="/RTCMultiConnection.js"></script>
-<script src="https://www.rtcmulticonnection.org/latest.js"></script>-->
+<!--<script src="/RTCMultiConnection.js"></script>-->
 <script src="//cdn.webrtc-experiment.com/RTCMultiConnection.js"></script>
+<!--<script src="https://www.rtcmulticonnection.org/latest.js"></script>-->
 
 <script>
 var socket = io.connect();
@@ -298,9 +304,16 @@ document.getElementById('open-or-join').onclick = function() {
 	userid = connection.userid = connection.channel = connection.sessionid = document.getElementById('user-id').value;
     var broadcastid = document.getElementById('broadcast-id').value;
 	//var userid = document.getElementById('user-id').value;
+
     if (broadcastid.replace(/^\s+|\s+$/g, '').length <= 0) {
-        alert('Please enter broadcast-id');
+        alert('Please Enter Room Name');
         document.getElementById('broadcast-id').focus();
+        return;
+    }
+	
+	    if (userid.replace(/^\s+|\s+$/g, '').length <= 0) {
+        alert('Please Enter Your Name');
+        document.getElementById('user-id').focus();
         return;
     }
 
@@ -433,7 +446,7 @@ var FileProgressBarHandler = (function() {
         connection.onFileStart = function(file) {
             var div = document.createElement('div');
             div.title = file.name;
-            div.innerHTML = '<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%"><label>0%</label><progress></progress></div></div>';
+            div.innerHTML = '<div class="progress"><label>0%</label><progress></progress></div>';
 
             if (file.remoteUserId) {
                 div.innerHTML += ' (Sharing with:' + file.remoteUserId + ')';
@@ -538,7 +551,8 @@ document.querySelector('input[type=file]').onchange = function() {
 };
 
 // chat
-document.getElementById('input-text-chat').onkeyup = function(e) {
+//document.getElementById('input-text-chat').onkeyup || document.getElementById('chat-send-button').onclick = function(e) {
+document.getElementById('chat-send-button').onclick = function(e) {
                 if (e.keyCode != 13) return;
 
                 // removing trailing/leading whitespace
