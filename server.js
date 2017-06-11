@@ -1,10 +1,8 @@
-// Muaz Khan   - www.MuazKhan.com
-// MIT License - www.WebRTC-Experiment.com/licence
-// Source Code - https://github.com/muaz-khan/WebRTC-Scalable-Broadcast
-
 var fs = require("fs");
 var path = require('path');
-
+var exp = require('express')();
+var http = require('http').Server(exp);
+var io = require('socket.io')(http);
 var app = require('http').createServer(function (request, response) {
     var uri = require('url').parse(request.url).pathname,
         filename = path.join(process.cwd(), uri);
