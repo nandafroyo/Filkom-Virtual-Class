@@ -5,121 +5,41 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="style.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<style>
-.chat-box {
-	position:relative;
-}
-.chat-output {
-    height: 800px;
-    width: 500px;
-	position:   absolute;
-    bottom:     0;
-    width: 100%;
-}
-
-#videos-container {
-    height: auto;
-    width: 100%;
-
-}
-
-video {
-    height: auto;
-    width: 100%;
-
-}
-	<!--
-	
-	.chat-output div {
-    border:1px solid #e2e4e3;
-    border-radius: 5px;
-    margin:5px;
-    padding:10px;;
-}
-
-#chat-box
-    {
-        overflow:   none;
-        position:   relative;
-        width:      100%;
-        height:     400px;
-    }
-    #chat-output
-    {
-        overflow:   auto;
-        position:   absolute;
-        bottom:     0;
-        max-height: 400px;
-    }
-
-.chat-box {
-    height: 200px;
-    width: 500px;
-    border: 2px solid lightgray;
-    overflow: auto;
-}
-.chat-output {
-	position:   absolute;
-    bottom:     0;
-    width: 100%;
-}
-
-.chat-box {
-    position:   relative;
-    width:      100%;
-    border: 	1px solid #ccc;
-}
-.chat-output
-{
-    position:   absolute;
-    bottom:     0;
-    width: 100%;
-    max-height: 200px;
-}
-.chat-div {
-    border:1px solid #e2e4e3;
-    border-radius: 5px;
-    margin:5px;
-    padding:10px;
-}
--->
-</style>
-    
     </head>
+	
 <body>
-
 <br>
 <div class="container-fluid">
 	<form class="form-vertical">
 		<div class="form-group">
 			<div class="col-md-8 col-md-offset-2">
-			<div class="panel panel-primary">
-				<div class="panel-heading"><span class="glyphicon glyphicon-education" aria-hidden="true"></span>  FILKOM CLASS VIRTUAL</div>
-				<div class="panel-body">
-				<label class="col-sm-8 control-label">Enter Your Name</label>
-				<input type="text" class="form-control" id="user-id" placeholder="Please enter your name here..." value=""><br>
-				<label for="inputText3" class="col-sm-8 control-label">Enter Room Name</label>
-				<input type="text" class="form-control" id="broadcast-id" placeholder="Please enter rome name here..." value=""><br>
-				<label for="sel1" class="col-sm-8 control-label">Broadcast Options</label>
-				<select class="form-control" id="broadcast-options">
-					<option>Audio+Video</option>
-					<option title="Works only in Firefox.">Audio+Screen</option>
-					<option>Audio</option>
-					<option>Video</option>
-					<option title="Screen capturing requries HTTPs. Please run this demo on HTTPs to make sure it can capture your screens.">Screen</option>
-					</select><br>
-				<button type="button" class="btn btn-primary" id="open-or-join">Open or Join Broadcast</button>
+				<div class="panel panel-primary">
+					<div class="panel-heading"><span class="glyphicon glyphicon-education" aria-hidden="true"></span>  FILKOM CLASS VIRTUAL</div>
+					<div class="panel-body">
+						<label class="col-sm-8 control-label">Enter Your Name</label>
+						<input type="text" class="form-control" id="user-id" placeholder="Please enter your name here..." value=""><br>
+						<label for="inputText3" class="col-sm-8 control-label">Enter Room Name</label>
+						<input type="text" class="form-control" id="broadcast-id" placeholder="Please enter room name here..." value=""><br>
+						<label for="sel1" class="col-sm-8 control-label">Broadcast Options</label>
+						<select class="form-control" id="broadcast-options">
+							<option>Audio+Video</option>
+							<option>Audio</option>
+							<option>Video</option>
+							<option title="Screen capturing requries HTTPs. Please run this demo on HTTPs to make sure it can capture your screens.">Screen</option>
+						</select><br>
+						<button type="button" class="btn btn-primary" id="open-or-join">Open or Join Broadcast</button>
+					</div>
 				</div>
-			</div>
 			<br><br><br><br>
 			</div>
 			
 		</div>
 	</form>
 	
-		<div class=row">
-			<div class="col-md-5 col-sm-offset-1">
+	<div class=row">
+		<div class="col-md-5 col-sm-offset-1">
 			<div class="panel panel-primary">
 				<div class="panel-heading"><span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span>  Video Stream</div>
 					<div class="panel-body">
@@ -127,50 +47,48 @@ video {
 					</div>
 			</div>
 				
-				<div class="panel panel-primary">
-					<div class="panel-heading"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>    Share File</div>
-						<div class="panel-body">
-							<input type="file" disabled>
-							<div id="files-container"></div>
-						</div>
-						
-				</div>
+			<div class="panel panel-primary">
+				<div class="panel-heading"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>    Share File</div>
+					<div class="panel-body">
+						<input type="file" disabled>
+						<div id="files-container"></div>
+					</div>	
 			</div>
 		</div>
+	</div>
 
-		<div class="col-md-5">
-				<div class="panel panel-primary">
-					<div class="panel-heading"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> Chat</div>
-						<div class="panel-body">
-							<div class="chat-box" style="overflow-y: scroll; height: calc(100vh - 110px); overflow-x: hidden;">
-				<!--<div class="chat-box" style="overflow-y: scroll; height: calc(100vh - 110px); margin-top: 17px; overflow-x: hidden; border: 2px solid #EEEEEE;" id="messageDiv">-->				
-					<div class="chat-output">
-					</div>						
+	<div class="col-md-5">
+			<div class="panel panel-primary">
+				<div class="panel-heading"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> Chat
 				</div>
-			
-				<div class="input-group">
-					<input type="text" id="input-text-chat" class="form-control" style ="margin-top:10px;" placeholder="Please enter a message here..." disabled>
-					<span class="input-group-btn">
-					<button class="btn btn-default" id="chat-send-button" type="button" style ="margin-top:10px;">Send</button></span>
-				</div>
-					<!--
-					<div class="normal" style="padding-left:400px";>
-						<button id="btnSendMessage" class="btn btn-primary" style="border-radius: 5px; margin-top:10px;;">Send Message</button>
-					</div>
-					-->
+					<div class="panel-body">
+						<div class="chat-box" style="overflow-y: scroll; height: calc(100vh - 110px); overflow-x: hidden;">		
+							<div class="chat-output">
+							</div>						
 						</div>
-						
-				</div>
-		</div>
-				
-			
-		<br><br>
-
+		
+						<div class="input-group">
+							<form><input type="text" id="input-text-chat" class="form-control" autocomplete="off" style ="margin-top:10px;" placeholder="Please enter a message here..." disabled></form>
+							<span class="input-group-btn">
+							<button class="btn btn-default" id="chat-send-button" type="button" style ="margin-top:10px;">Send</button></span>
+						</div>
+					</div>	
+			</div>
+	</div>
+	
+	<br><br>
 </div>
-<script src="/socket.io/socket.io.js"></script>
-<!--<script src="/RTCMultiConnection.js"></script>-->
+
+
+<!--<script src="/socket.io/socket.io.js"></script>
+<script src="/RTCMultiConnection.js"></script>-->
 <script src="//cdn.webrtc-experiment.com/RTCMultiConnection.js"></script>
+<script src="https://www.webrtc-experiment.com/data-connection.js"></script>
+<script src="https://cdn.firebase.com/v0/firebase.js"></script>
+
 <!--<script src="https://www.rtcmulticonnection.org/latest.js"></script>-->
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
 
 <script>
 var socket = io.connect();
@@ -187,14 +105,16 @@ socket.on('message', function(data) {
 // initializing RTCMultiConnection constructor.
 function initRTCMultiConnection() {
     var connection = new RTCMultiConnection();
+	var chatconnection= new DataConnection();
     connection.body = document.getElementById('videos-container');
-	connection.body2 = connection.filesContainer = document.getElementById('files-container');
+	//connection.body2 = connection.filesContainer = document.getElementById('files-container');
+	connection.filesContainer = document.getElementById('files-container');
 	userid = connection.userid = connection.channel = connection.sessionid = document.getElementById('user-id').value;
-    //connection.channel = connection.sessionid = connection.userid = userid = document.getElementById('broadcast-id').value;
-	//connection.channel = connection.sessionid = connection.userid = userid || connection.userid;
    
+   
+    connection.maxRelayLimitPerUser = 30;
 	//chat
-	connection.onmessage = appendDIV;
+	//connection.onmessage = appendDIV;
 
    connection.sdpConstraints.mandatory = {
         OfferToReceiveAudio: false,
@@ -203,6 +123,11 @@ function initRTCMultiConnection() {
 	
 	connection.media.min(480, 320);
     connection.media.max(480, 320);
+	
+	connection.mediaConstraints.mandatory = {
+    minFrameRate: 3,
+	maxFrameRate:4
+	};
 	
 	
     // using socket.io for signaling
@@ -232,6 +157,7 @@ var connection = initRTCMultiConnection();
 
 connection.getExternalIceServers = false;
 
+//VIDEO AUDIO
 connection.onstream = function(event) {
     connection.body.appendChild(event.mediaElement);
 
@@ -268,10 +194,45 @@ connection.onstream = function(event) {
         connection.broadcastingConnection.session = connection.session;
         connection.broadcastingConnection.attachStreams.push(event.stream); // broadcast remote stream
         connection.broadcastingConnection.dontCaptureUserMedia = true;
+
+        // forwarder should always use this!
+        connection.broadcastingConnection.sdpConstraints.mandatory = {
+            OfferToReceiveVideo: false,
+            OfferToReceiveAudio: false
+        };
+
+        connection.broadcastingConnection.open({
+            dontTransmit: true
+        });
+    }
+};
+
+//DATA
+connection.onopen = function(event) {
+    document.querySelector('h1').innerHTML = 'Remote user <b>' + event.userid + '</b> is connected.';
+	document.getElementById('input-text-chat').disabled = false;
+
+    if(connection.isInitiator) {
+        document.querySelector('input[type=file]').disabled = false;
+		document.getElementById('input-text-chat').disabled = false;
+    }
+
+    if (connection.isInitiator == false && !connection.broadcastingConnection) {
+        // "connection.broadcastingConnection" global-level object is used
+        // instead of using a closure object, i.e. "privateConnection"
+        // because sometimes out of browser-specific bugs, browser 
+        // can emit "onaddstream" event even if remote user didn't attach any stream.
+        // such bugs happen often in chrome.
+        // "connection.broadcastingConnection" prevents multiple initializations.
+
+        // if current user is broadcast viewer
+        // he should create a separate RTCMultiConnection object as well.
+        // because node.js server can allot him other viewers for
+        // remote-stream-broadcasting.
+        connection.broadcastingConnection = initRTCMultiConnection(connection.userid);
 		
-		//share file\//ganti
-		 connection.broadcastingConnection.onopen = function() {
-		 document.querySelector('h1').innerHTML = 'Remote user <b>' + event.userid + '</b> is connected.';
+        connection.broadcastingConnection.onopen = function() {
+            document.querySelector('h1').innerHTML = 'Remote user <b>' + event.userid + '</b> is connected.';
 
             // share old received files with new users!
             if(connection.broadcastingConnection.isInitiator && connection.lastFile) {
@@ -283,7 +244,6 @@ connection.onstream = function(event) {
         connection.broadcastingConnection.body = connection.broadcastingConnection.filesContainer = document.getElementById('files-container');
         FileProgressBarHandler.handle(connection.broadcastingConnection);
         connection.broadcastingConnection.session = connection.session;
-		
 
         // forwarder should always use this!
         connection.broadcastingConnection.sdpConstraints.mandatory = {
@@ -320,8 +280,7 @@ document.getElementById('open-or-join').onclick = function() {
     this.disabled = true;
 	
     connection.session = {
-        video: document.getElementById('broadcast-options').value.indexOf('Video') !== -1,
-        screen: document.getElementById('broadcast-options').value.indexOf('Screen') !== -1,
+		video: document.getElementById('broadcast-options').value.indexOf('Video') !== -1,
         audio: document.getElementById('broadcast-options').value.indexOf('Audio') !== -1,
 		data: true,
         oneway: true
@@ -337,16 +296,12 @@ document.getElementById('open-or-join').onclick = function() {
 // this event is emitted when a broadcast is already created.
 socket.on('join-broadcaster', function(broadcaster, typeOfStreams) {
     connection.session = typeOfStreams;
-    //userid = connection.userid = connection.channel = connection.sessionid = document.getElementById('user-id').value;
 	connection.channel = connection.sessionid = broadcaster.userid;
-	//userid = broadcaster.userid = connection.channel = connection.sessionid = document.getElementById('user-id').value;
-	//broadcaster.userid = document.getElementById('user-id').value;
     connection.sdpConstraints.mandatory = {
         OfferToReceiveVideo: !!connection.session.video,
         OfferToReceiveAudio: !!connection.session.audio
     };
 
-	//connection.join(userid);
     connection.join({
       sessionid: broadcaster.userid,
         userid: broadcaster.userid,
@@ -381,62 +336,7 @@ window.onbeforeunload = function() {
 };
 
 
-
-//=============================//
-//============================//
-//=============================//
-//============================//
-//=============================//
-//============================//
-//SHARE FILEEEEE
-
-/*
-connection.onopen = function(event) {
-    document.querySelector('h1').innerHTML = 'Remote user <b>' + event.userid + '</b> is connected.';
-
-    if(connection.isInitiator) {
-        document.querySelector('input[type=file]').disabled = false;
-    }
-
-    if (connection.isInitiator == false && !connection.broadcastingConnection) {
-        // "connection.broadcastingConnection" global-level object is used
-        // instead of using a closure object, i.e. "privateConnection"
-        // because sometimes out of browser-specific bugs, browser 
-        // can emit "onaddstream" event even if remote user didn't attach any stream.
-        // such bugs happen often in chrome.
-        // "connection.broadcastingConnection" prevents multiple initializations.
-
-        // if current user is broadcast viewer
-        // he should create a separate RTCMultiConnection object as well.
-        // because node.js server can allot him other viewers for
-        // remote-stream-broadcasting.
-        connection.broadcastingConnection = initRTCMultiConnection(connection.userid);
-        connection.broadcastingConnection.onopen = function() {
-            document.querySelector('h1').innerHTML = 'Remote user <b>' + event.userid + '</b> is connected.';
-
-            // share old received files with new users!
-            if(connection.broadcastingConnection.isInitiator && connection.lastFile) {
-                setTimeout(function() {
-                    connection.broadcastingConnection.send(connection.lastFile);
-                }, 2000);
-            }
-        };
-        connection.broadcastingConnection.body = connection.broadcastingConnection.filesContainer = document.getElementById('files-container');
-        FileProgressBarHandler.handle(connection.broadcastingConnection);
-        connection.broadcastingConnection.session = connection.session;
-
-        // forwarder should always use this!
-        //connection.broadcastingConnection.sdpConstraints.mandatory = {
-          //  OfferToReceiveVideo: false,
-            //OfferToReceiveAudio: false
-        //};
-
-        connection.broadcastingConnection.open({
-            dontTransmit: true
-        });
-    }
-};
-*/
+//PROGRESS SHARE FILE
 
 var FileProgressBarHandler = (function() {
     function handle(connection) {
@@ -550,46 +450,172 @@ document.querySelector('input[type=file]').onchange = function() {
     }
 };
 
-// chat
-//document.getElementById('input-text-chat').onkeyup || document.getElementById('chat-send-button').onclick = function(e) {
+//CHAT
+
+/*
+//SEND CHAT WITH PUSH ENTER BUTTON
 document.getElementById('input-text-chat').onkeyup = function(e) {
                 if (e.keyCode != 13) return;
 
                 // removing trailing/leading whitespace
                 this.value = this.value.replace(/^\s+|\s+$/g, '');
                 if (!this.value.length) return;
-
-                connection.send(this.value);
-                appendDIV("<strong>" + userid + " : " + "</strong>" + this.value);
+				//var broadcastid = document.getElementById('broadcast-id');
+				var chatconnection = new DataConnection();
+				var broadcastid = document.getElementById('broadcast-id');
+				//chatconnection.setup(broadcastid);
+				chatconnection.channels[broadcastid.value].send("<strong>" + userid + " : " + "</strong>" + this.value);
+				//connection.peers[broadcastid.value].sendCustomMessage("<strong>" + userid + " : " + "</strong>" + this.value);
+				//connection.send("<strong>" + userid + " : " + "</strong>" + this.value);
+				appendDIV("<strong>" + userid + " : " + "</strong>" + this.value);
+				
                 this.value = '';
             };
 
-document.getElementById('chat-send-button').onclick = function(e) {
-				this.value = document.getElementById('input-text-chat').value;
+//SEND CHAT WITH CLICK SEND BUTTON		
+document.getElementById("chat-send-button").onclick = function(e) {
+
                 // removing trailing/leading whitespace
                 this.value = this.value.replace(/^\s+|\s+$/g, '');
-                if (!this.value.length) return;
-				else{
-                connection.send(this.value);
-                appendDIV("<strong>" + userid + " : " + "</strong>" + this.value);
-                this.value = '';}
-            };
+
+
+				connection.send("<strong>" + userid + " : " + "</strong>" + this.value);
+				appendDIV("<strong>" + userid + " : " + "</strong>" + this.value);
+
+            };			
 
             var chatContainer = document.querySelector('.chat-output');
 
             function appendDIV(event, userid) {
                 var div = document.createElement('div');
-				div.setAttribute("class", "well" );
+				div.setAttribute("class", "well-sm" );
                 div.innerHTML = event.data || event;
                 chatContainer.appendChild(div);
-				//chatContainer.insertBefore(div, chatContainer.firstChild);
                 div.tabIndex = 0;
                 div.focus();
 
                 document.getElementById('input-text-chat').focus();
+				
             }
+			
+			
 
+			socketCustomEvent = document.getElementById('broadcast-id').value;
+
+			document.getElementById('input-text-chat').onkeyup = function(e) {
+                if (e.keyCode != 13) return;
+
+                // removing trailing/leading whitespace
+                this.value = this.value.replace(/^\s+|\s+$/g, '');
+                if (!this.value.length) return;
+
+				appendDIV("<strong>" + userid + " : " + "</strong>" + this.value);
+				
+				socket.emit('socketCustomEvent', {
+					userid: connection.userid,
+					for: 'all',
+					data: 'this is a chat message for all my broadcast viewers'
+				 });
+				
+                this.value = '';
+            };
+			
+			socket.on('socketCustomEvent', function(event, userid) {
+					if(event.for === 'all') appendDIV("<strong>" + userid + " : " + "</strong>" + event.data);
+					if(event.for === connection.broadcastid) appendDIV("<strong>" + userid + " : " + "</strong>" + this.value);
+			});
+			
+			
+			$(function () {
+				var socket = io();
+				//var broadcastidchat= document.getElementById('broadcast-id').value;
+				$('form').submit(function(){
+					socket.emit('chat message',{
+						//broadcastid: connection.broadcastid,
+						for: 'broadcastid'
+						//data: 'this is a chat message for all my broadcast viewers'
+				  }, $('#m').val());
+				  $('#m').val('');
+				  consol.log(broadcastid);
+				  return false;
+				});
+				
+				socket.on('chat message', function(msg, event){
+					if(event.for === 'broadcastid') $('#messages').append($('<li>').text(msg));
+				  //window.scrollTo(0, document.body.scrollHeight);
+				});
+			});
+			*/
+			/*
+			 $(function () {   
+				//var chatroom = broadcastid;
+				var broadcastid = document.getElementById('broadcast-id').value;
+				var socket = io();
+				$('form').submit(function(){
+				  var broadcastid = document.getElementById('broadcast-id').value;
+				  //socket.emit('chat message'), $('#m').val());
+				  socket.emit('chat message', $('#m').val());
+				  //{
+					//	broadcastid: broadcastid,
+						//msg: $('#m').val()
+				  //}
+				  //socket.emit(broadcastid, $('#m').val());
+				  //socket.broadcast.to(id).emit('my message', msg);
+				  $('#m').val('');
+				  console.log('coba', broadcastid);
+				  return false;
+				});
+	
+				socket.on('chat message', function(msg){
+					 $('#messages').append($('<li>').text(msg));
+					 window.scrollTo(0, document.body.scrollHeight);
+					 console.log('coba2', broadcastid);
+				  
+				});
+			});
+	  */
+	  
+			  $(function () {
+				var roomidsss = document.getElementById('broadcast-id').value;
+				var socket = io(roomidsss);
+				$('form').submit(function(){
+					var roomid = document.getElementById('broadcast-id').value;
+					console.log(roomid);
+				  socket.emit('chat message', roomid, $('#input-text-chat').val());
+				  $('#input-text-chat').val('');
+				  
+				  return false;
+				});
+				
+				socket.on('chat message', function(roomid, msg, event){
+				//alert(roomid);
+				var roomidchat = document.getElementById('broadcast-id').value;
+				var idchat = document.getElementById('user-id').value;
+					if(roomid = roomidchat) appendDIV("<strong>" + idchat + " : " + "</strong>" + msg);
+					//if(roomid = roomidchat) $('#messages').append($("<li><strong>" + roomidchat + " : " + "</strong>: ").text(msg)); 
+					//else alert('GAGAL');
+					//	  window.scrollTo(0, document.body.scrollHeight);
+				});
+				
+				var chatContainer = document.querySelector('.chat-output');
+				
+				function appendDIV(event, userid) {
+                var div = document.createElement('div');
+				div.setAttribute("class", "well-sm" );
+                div.innerHTML = event.data || event;
+                chatContainer.appendChild(div);
+                div.tabIndex = 0;
+                div.focus();
+
+                document.getElementById('input-text-chat').focus();
+				
+            }
+				
+      });
 </script>
+
+
+
 
 </body>
 </html>
