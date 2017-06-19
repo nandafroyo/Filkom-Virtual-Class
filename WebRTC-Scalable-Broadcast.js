@@ -123,7 +123,7 @@ nsp.on('connection', function(socket){
 		//console.log(broadcasters);
         var firstResult;
         for (var userid in broadcasters) {
-            if (broadcasters[userid].numberOfViewers <= 3) {
+            if (broadcasters[userid].numberOfViewers <= 40) {
                 firstResult = broadcasters[userid];
 				
 				break;
