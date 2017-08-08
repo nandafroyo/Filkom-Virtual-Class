@@ -80,13 +80,10 @@
 </div>
 
 
-<!--<script src="/socket.io/socket.io.js"></script>
-<script src="/RTCMultiConnection.js"></script>-->
 <script src="//cdn.webrtc-experiment.com/RTCMultiConnection.js"></script>
 <script src="https://www.webrtc-experiment.com/data-connection.js"></script>
 <script src="https://cdn.firebase.com/v0/firebase.js"></script>
 
-<!--<script src="https://www.rtcmulticonnection.org/latest.js"></script>-->
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
 
@@ -107,7 +104,6 @@ function initRTCMultiConnection() {
     var connection = new RTCMultiConnection();
 	var chatconnection= new DataConnection();
     connection.body = document.getElementById('videos-container');
-	//connection.body2 = connection.filesContainer = document.getElementById('files-container');
 	connection.filesContainer = document.getElementById('files-container');
 	userid = connection.userid = connection.channel = connection.sessionid = document.getElementById('user-id').value;
    
@@ -121,14 +117,13 @@ function initRTCMultiConnection() {
         OfferToReceiveVideo: true
     };
 	
-	connection.media.min(480, 320);
-    connection.media.max(480, 320);
+	connection.media.min(320, 240);
+    connection.media.max(320, 240);
 	
 	connection.mediaConstraints.mandatory = {
     minFrameRate: 3,
 	maxFrameRate:4
 	};
-	
 	
     // using socket.io for signaling
     connection.openSignalingChannel = function(config) {
@@ -188,7 +183,6 @@ connection.onstream = function(event) {
 
         // to fix unexpected chrome/firefox bugs out of sendrecv/sendonly/etc. issues.
         
-		//ganti
 		connection.broadcastingConnection.onstream = function() {};
 
         connection.broadcastingConnection.session = connection.session;
@@ -450,151 +444,25 @@ document.querySelector('input[type=file]').onchange = function() {
     }
 };
 
-//CHAT
-
-/*
-//SEND CHAT WITH PUSH ENTER BUTTON
-document.getElementById('input-text-chat').onkeyup = function(e) {
-                if (e.keyCode != 13) return;
-
-                // removing trailing/leading whitespace
-                this.value = this.value.replace(/^\s+|\s+$/g, '');
-                if (!this.value.length) return;
-				//var broadcastid = document.getElementById('broadcast-id');
-				var chatconnection = new DataConnection();
-				var broadcastid = document.getElementById('broadcast-id');
-				//chatconnection.setup(broadcastid);
-				chatconnection.channels[broadcastid.value].send("<strong>" + userid + " : " + "</strong>" + this.value);
-				//connection.peers[broadcastid.value].sendCustomMessage("<strong>" + userid + " : " + "</strong>" + this.value);
-				//connection.send("<strong>" + userid + " : " + "</strong>" + this.value);
-				appendDIV("<strong>" + userid + " : " + "</strong>" + this.value);
-				
-                this.value = '';
-            };
-
-//SEND CHAT WITH CLICK SEND BUTTON		
-document.getElementById("chat-send-button").onclick = function(e) {
-
-                // removing trailing/leading whitespace
-                this.value = this.value.replace(/^\s+|\s+$/g, '');
-
-
-				connection.send("<strong>" + userid + " : " + "</strong>" + this.value);
-				appendDIV("<strong>" + userid + " : " + "</strong>" + this.value);
-
-            };			
-
-            var chatContainer = document.querySelector('.chat-output');
-
-            function appendDIV(event, userid) {
-                var div = document.createElement('div');
-				div.setAttribute("class", "well-sm" );
-                div.innerHTML = event.data || event;
-                chatContainer.appendChild(div);
-                div.tabIndex = 0;
-                div.focus();
-
-                document.getElementById('input-text-chat').focus();
-				
-            }
-			
-			
-
-			socketCustomEvent = document.getElementById('broadcast-id').value;
-
-			document.getElementById('input-text-chat').onkeyup = function(e) {
-                if (e.keyCode != 13) return;
-
-                // removing trailing/leading whitespace
-                this.value = this.value.replace(/^\s+|\s+$/g, '');
-                if (!this.value.length) return;
-
-				appendDIV("<strong>" + userid + " : " + "</strong>" + this.value);
-				
-				socket.emit('socketCustomEvent', {
-					userid: connection.userid,
-					for: 'all',
-					data: 'this is a chat message for all my broadcast viewers'
-				 });
-				
-                this.value = '';
-            };
-			
-			socket.on('socketCustomEvent', function(event, userid) {
-					if(event.for === 'all') appendDIV("<strong>" + userid + " : " + "</strong>" + event.data);
-					if(event.for === connection.broadcastid) appendDIV("<strong>" + userid + " : " + "</strong>" + this.value);
-			});
-			
-			
-			$(function () {
-				var socket = io();
-				//var broadcastidchat= document.getElementById('broadcast-id').value;
-				$('form').submit(function(){
-					socket.emit('chat message',{
-						//broadcastid: connection.broadcastid,
-						for: 'broadcastid'
-						//data: 'this is a chat message for all my broadcast viewers'
-				  }, $('#m').val());
-				  $('#m').val('');
-				  consol.log(broadcastid);
-				  return false;
-				});
-				
-				socket.on('chat message', function(msg, event){
-					if(event.for === 'broadcastid') $('#messages').append($('<li>').text(msg));
-				  //window.scrollTo(0, document.body.scrollHeight);
-				});
-			});
-			*/
-			/*
-			 $(function () {   
-				//var chatroom = broadcastid;
-				var broadcastid = document.getElementById('broadcast-id').value;
-				var socket = io();
-				$('form').submit(function(){
-				  var broadcastid = document.getElementById('broadcast-id').value;
-				  //socket.emit('chat message'), $('#m').val());
-				  socket.emit('chat message', $('#m').val());
-				  //{
-					//	broadcastid: broadcastid,
-						//msg: $('#m').val()
-				  //}
-				  //socket.emit(broadcastid, $('#m').val());
-				  //socket.broadcast.to(id).emit('my message', msg);
-				  $('#m').val('');
-				  console.log('coba', broadcastid);
-				  return false;
-				});
-	
-				socket.on('chat message', function(msg){
-					 $('#messages').append($('<li>').text(msg));
-					 window.scrollTo(0, document.body.scrollHeight);
-					 console.log('coba2', broadcastid);
-				  
-				});
-			});
-	  */
-	  
+//CHAT 
 			  $(function () {
 				var roomidsss = document.getElementById('broadcast-id').value;
 				var socket = io(roomidsss);
 				$('form').submit(function(){
 					var roomid = document.getElementById('broadcast-id').value;
+					var idchat = document.getElementById('user-id').value;
 					console.log(roomid);
-				  socket.emit('chat message', roomid, $('#input-text-chat').val());
+				  socket.emit('chat message', roomid, idchat, $('#input-text-chat').val());
 				  $('#input-text-chat').val('');
 				  
 				  return false;
 				});
 				
-				socket.on('chat message', function(roomid, msg, event){
+				socket.on('chat message', function(roomid, idchat, msg, event){
 				//alert(roomid);
 				var roomidchat = document.getElementById('broadcast-id').value;
-				var idchat = document.getElementById('user-id').value;
+				//var idchat = document.getElementById('user-id').value;
 					if(roomid = roomidchat) appendDIV("<strong>" + idchat + " : " + "</strong>" + msg);
-					//if(roomid = roomidchat) $('#messages').append($("<li><strong>" + roomidchat + " : " + "</strong>: ").text(msg)); 
-					//else alert('GAGAL');
-					//	  window.scrollTo(0, document.body.scrollHeight);
 				});
 				
 				var chatContainer = document.querySelector('.chat-output');
@@ -607,15 +475,10 @@ document.getElementById("chat-send-button").onclick = function(e) {
                 div.tabIndex = 0;
                 div.focus();
 
-                document.getElementById('input-text-chat').focus();
-				
-            }
-				
+                document.getElementById('input-text-chat').focus();	
+            }	
       });
 </script>
-
-
-
 
 </body>
 </html>

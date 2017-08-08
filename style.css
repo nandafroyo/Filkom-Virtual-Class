@@ -2,6 +2,15 @@
 	position:relative;
 }
 */
+body {
+	background-color:#ff8720;
+	/*background-image: -webkit-radial-gradient(circle,#333,#0c0c0c);
+    background-image: radial-gradient(circle,#333,#0c0c0c);
+    background-repeat: no-repeat;
+    color: #636363;
+	*/
+}
+
 .chat-box {
     height: 200px;
     width: 500px;
@@ -11,7 +20,7 @@
 }
 
 .chat-output {
-    height: 800px;
+    height: 0px;
     width: 500px;
 	position:   absolute;
     bottom:     0;

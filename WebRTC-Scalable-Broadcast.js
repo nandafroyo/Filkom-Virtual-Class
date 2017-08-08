@@ -1,5 +1,3 @@
-// Muaz Khan   - www.MuazKhan.com
-// MIT License - www.WebRTC-Experiment.com/licence
 
 module.exports = exports = WebRTC_Scalable_Broadcast;
 
@@ -45,45 +43,18 @@ function WebRTC_Scalable_Broadcast(app) {
                 console.log('User <', user.userid, '> will be next to serve broadcast.');
 					
             }
-
-			
+	
             listOfBroadcasts[user.broadcastid].broadcasters[user.userid] = user;
             listOfBroadcasts[user.broadcastid].allusers[user.userid] = user;
-			//menampilkan nama user//
-			//console.log(listOfBroadcasts[user.broadcastid].allusers);
-			//console.log(listOfBroadcasts[user.broadcastid].broadcasters);
-			//console.log(listOfBroadcasts[user.broadcastid].broadcasters[user.userid]);
-			//console.log(currentUser.broadcastid);
-			
         });
 
         socket.on('message', function(message, userid) {
             socket.broadcast.emit('message', message, userid);
         });
-		
-		/*
-		socket.on('chat message', function(msg){
-			//socket.join(broadcastid.broadcastid);
-			//socket.emit('chat message', msg);
-			//socket.to(broadcastid.broadcastid).emit('chat message', msg);
-			//socket.emit(broadcastid.broadcastid, msg);
-			//io.to(broadcastid.broadcastid).emit('chat message');
-			socket.emit('chat message', msg);
-			//socket.leave(broadcastid.broadcastid);
-
-			//console.log(broadcastid.broadcastid + msg);
-		});
-		*/
-		socket.on('socketCustomEvent', function(msg) {
-				
-				 socket.emit('socketCustomEvent', msg);
-			});
 			
-		socket.on('chat message', function(roomid, msg){
-			//console.log(roomid);
+		socket.on('chat message', function(roomid, idchat, msg){
 			 socket.join(roomid);
-			io.sockets.in(roomid).emit('chat message', roomid, msg);
-			//console.log('end ' + roomid);
+			io.sockets.in(roomid).emit('chat message', roomid, idchat, msg);
 		  });
 				 
         socket.on('disconnect', function() {
@@ -98,37 +69,15 @@ function WebRTC_Scalable_Broadcast(app) {
         });
 		
     });
-/*	
-var nsp = io.of(broadcastid);
-nsp.on('connection', function(socket){
-  console.log('someone connected');
-  	socket.on('chat message', function(msg, user){
-			//currentUser = user;
-			io.emit('chat message', msg);
-			//console.log(chatroom);
-		});
-});
-*/
-	
-	//socket.on(currentUser.broadcastid, function(msg, user){
-			
-			//io.emit(currentUser.broadcastid, msg);
-			//console.log(chatroom);
-		//});
-		
 
     function getFirstAvailableBraodcater(user) {
         var broadcasters = listOfBroadcasts[user.broadcastid].broadcasters;
-		//console.log(listOfBroadcasts[user.broadcastid].broadcasters);
-		//console.log(broadcasters);
         var firstResult;
         for (var userid in broadcasters) {
             if (broadcasters[userid].numberOfViewers <= 40) {
                 firstResult = broadcasters[userid];
-				
 				break;
-                //continue;
-            } //else delete listOfBroadcasts[user.broadcastid].broadcasters[userid];
+            }
         }
 		
 		console.log(firstResult);
